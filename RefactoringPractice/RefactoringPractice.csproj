@@ -7,4 +7,31 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="names.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="moves.txt" />
+      <Content Include="moves.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="names.txt" />
+      <Content Include="names.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="phrases.txt" />
+      <Content Include="phrases.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="breeds.txt" />
+      <Content Include="breeds.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="SixLabors.ImageSharp" Version="3.1.7" />
+    </ItemGroup>
+
 </Project>
