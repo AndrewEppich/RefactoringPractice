@@ -36,68 +36,68 @@ public class MatchSimulator
         Console.WriteLine($"Introducing {second.Name} ({second.Breed} - {second.WrestlerName})");
         Console.WriteLine($"    {second.Description}");
 
-        int num1 = 0;
-        int num2 = 0;
+        int winsPlayer1 = 0;
+        int winsPlayer2 = 0;
 
-        for (int n = 1; n <= 3; n++)
+        for (int matchNumber = 1; matchNumber <= 3; matchNumber++)
         {
-            Console.WriteLine($"\n--- Match {n} ---");
+            Console.WriteLine($"\n--- Match {matchNumber} ---");
             Console.WriteLine("Press Enter to begin the match...");
             Console.ReadLine();
             
-            int val1 = 100;
-            int val2 = 100;
+            int healthPlayer1 = 100;
+            int healthPlayer2 = 100;
 
-            while (val1 > 0 && val2 > 0)
+            while (healthPlayer1 > 0 && healthPlayer2 > 0)
             {
-                int n1 = Random.Next(10, 21);
-                val2 -= n1;
+                int damagePlayer1 = Random.Next(10, 21);
+                healthPlayer2 -= damagePlayer1;
 
-                if (val2 <= 0) break;       
+                if (healthPlayer2 <= 0) break;       
 
-                int n2 = Random.Next(10, 21);
-                val1 -= n2;
+                int damagePlayer2 = Random.Next(10, 21);
+                healthPlayer1 -= damagePlayer2;
             }
 
-            Wrestler third;
-            if (val1 > 0)
+            Wrestler matchWinner;
+            if (healthPlayer1 > 0)
             {
-                third = first;
-            }
-            else
-            {
-                third = second;
-            }
-            Console.WriteLine($"Winner of Match {n}: {third.Name} ({third.Breed})");
-            Console.WriteLine($"Finishing move: {third.Moves[Random.Next(third.Moves.Count)]}");
-
-            if (third == first)
-            {
-                num1++;
+                matchWinner = first;
             }
             else
             {
-                num2++;
+                matchWinner = second;
+            }
+            Console.WriteLine($"Winner of Match {matchNumber}: {matchWinner.Name} ({matchWinner.Breed})");
+            Console.WriteLine($"Finishing move: {matchWinner.Moves[Random.Next(matchWinner.Moves.Count)]}");
+
+            if (matchWinner == first)
+            {
+                winsPlayer1++;
+            }
+            else
+            {
+                winsPlayer2++;
             }
             
-            if (num1 == 2 || num2 == 2)
+            if (winsPlayer1 == 2 || winsPlayer2 == 2)
             {
                 break;
             }
         }
         
-        Wrestler fourth;
-        if (num1 > num2)
+        Wrestler gameWinner;
+        if (winsPlayer1 > winsPlayer2)
         {
-            fourth = first;
+            gameWinner = first;
         }
         else
         {
-            fourth = second;
+            gameWinner = second;
         }
         
         int synonymIndex = Random.Next(shoutSynonyms.Count);
         string randomShoutSynonym = shoutSynonyms[synonymIndex];
-        Console.WriteLine($"\n{fourth.Name} ({fourth.Breed}) wins, {randomShoutSynonym}: \"{fourth.Catchphrase}\"");
+        Console.WriteLine($"\n{gameWinner.Name} ({gameWinner.Breed}) wins, {randomShoutSynonym}: \"{gameWinner.Catchphrase}\"");
     }
 }
