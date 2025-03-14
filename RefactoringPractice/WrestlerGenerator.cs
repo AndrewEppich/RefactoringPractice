@@ -18,10 +18,16 @@ public class WrestlerGenerator
     public string MovesFilename = "moves.txt";
     public string BreedsFilename = "breeds.txt";
 
-    public WrestlerGenerator()
+    public bool IfFileExists(string Filename)
+    {
+        return File.Exists(Filename);
+    }
+    
+
+    public void LoadNames()
     {
         // load the names
-        if (!File.Exists(NamesFilename))
+        if (!IfFileExists(NamesFilename))
             throw new FileNotFoundException($"File not found: {NamesFilename}");
         Names = new List<string>();
         foreach (string line in File.ReadLines(NamesFilename))
@@ -31,10 +37,12 @@ public class WrestlerGenerator
             {
                 Names.Add(trimmed);
             }
-        }
-        
+        }    }
+
+    public void LoadCatchphrases()
+    {
         // load the catchphrases
-        if (!File.Exists(CatchphrasesFilename))
+        if (!IfFileExists(CatchphrasesFilename))
             throw new FileNotFoundException($"File not found: {CatchphrasesFilename}");
         Catchphrases = new List<string>();
         foreach (string line in File.ReadLines(CatchphrasesFilename))
@@ -45,9 +53,12 @@ public class WrestlerGenerator
                 Catchphrases.Add(trimmed);
             }
         }
-        
+    }
+
+    public void LoadMoves()
+    {
         // load the moves
-        if (!File.Exists(MovesFilename))
+        if (!IfFileExists(MovesFilename))
             throw new FileNotFoundException($"File not found: {MovesFilename}");
         Moves = new List<string>();
         foreach (string line in File.ReadLines(MovesFilename))
@@ -58,9 +69,12 @@ public class WrestlerGenerator
                 Moves.Add(trimmed);
             }
         }
-        
+    }
+
+    public void LoadBreedInfo()
+    {
         // load the breed information
-        if (!File.Exists(BreedsFilename))
+        if (!IfFileExists(BreedsFilename))
             throw new FileNotFoundException($"File not found: {BreedsFilename}");
         Breeds = new List<BreedInfo>();
         foreach (string line in File.ReadLines(BreedsFilename))
@@ -71,12 +85,19 @@ public class WrestlerGenerator
                 Breeds.Add(new BreedInfo(parts[0].Trim(), parts[1].Trim(), parts[2].Trim()));
             }
         }
-
+    }
+    public WrestlerGenerator()
+    {
+        LoadNames();
+        LoadCatchphrases();
+        LoadMoves();
+        LoadBreedInfo();
+        
         if (Names.Count == 0 || Catchphrases.Count == 0 || Moves.Count < 4 || Breeds.Count == 0)
             throw new InvalidOperationException("Files cannot be empty, and moves list must have at least 4 entries.");
     }
 
-    public Wrestler GenerateWrestler()
+    public string PickAName()
     {
         // pick a name
         if (UsedNames.Count >= Names.Count)
@@ -87,11 +108,11 @@ public class WrestlerGenerator
             name = Names[Random.Next(Names.Count)];
         } while (UsedNames.Contains(name));
         UsedNames.Add(name);
-        
-        // pick a catchphrase
-        int catchphraseIndex = Random.Next(Catchphrases.Count);
-        string catchphrase = Catchphrases[catchphraseIndex];
-        
+        return name;
+    }
+
+    public List<string> PickTheMoves()
+    {
         // pick the moves
         List<string> wrestlerMoves = new List<string>();
         List<int> usedIndices = new List<int>();
@@ -104,13 +125,29 @@ public class WrestlerGenerator
                 wrestlerMoves.Add(Moves[index]);
             }
         }
-        
+
+        return wrestlerMoves;
+    }
+
+    public string PickACatchPhrase()
+    {
+        // pick a catchphrase
+        int catchphraseIndex = Random.Next(Catchphrases.Count);
+        string catchphrase = Catchphrases[catchphraseIndex];
+        return catchphrase;
+    }
+
+    public BreedInfo PickTheBreed()
+    {
         // pick the breed
         int breedIndex = Random.Next(Breeds.Count);
         BreedInfo breedInfo = Breeds[breedIndex];
+        return breedInfo;
+    }
 
-        return new Wrestler(name, catchphrase, wrestlerMoves, breedInfo);
+    public Wrestler GenerateWrestler()
+    {
+
+        return new Wrestler(PickAName(), PickACatchPhrase(), PickTheMoves(), PickTheBreed());
     }
 }
-
-
