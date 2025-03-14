@@ -34,13 +34,13 @@ public class MatchSimulator
 
     public void RunMatchSeries()
     {
-        Wrestler first = WrestlerGenerator.GenerateWrestler();
-        Wrestler second = WrestlerGenerator.GenerateWrestler();
-        writeIntroToConsole(first, second);
+        Wrestler wrestler1 = WrestlerGenerator.GenerateWrestler();
+        Wrestler wrestler2 = WrestlerGenerator.GenerateWrestler();
+        writeIntroToConsole(wrestler1, wrestler2);
 
 
-        int winsPlayer1 = 0;
-        int winsPlayer2 = 0;
+        int winsWrestler1 = 0;
+        int winsWrestler2 = 0;
 
         for (int matchNumber = 1; matchNumber <= 3; matchNumber++)
         {
@@ -48,55 +48,55 @@ public class MatchSimulator
             Console.WriteLine("Press Enter to begin the match...");
             Console.ReadLine();
             
-            int healthPlayer1 = 100;
-            int healthPlayer2 = 100;
+            int healthWrestler1 = 100;
+            int healthWrestler2 = 100;
 
-            while (healthPlayer1 > 0 && healthPlayer2 > 0)
+            while (healthWrestler1 > 0 && healthWrestler2 > 0)
             {
-                int damagePlayer1 = Random.Next(10, 21);
-                healthPlayer2 -= damagePlayer1;
+                int damageFromPlayer1 = Random.Next(10, 21);
+                healthWrestler2 -= damageFromPlayer1;
 
-                if (healthPlayer2 <= 0) break;       
+                if (healthWrestler2 <= 0) break;       
 
-                int damagePlayer2 = Random.Next(10, 21);
-                healthPlayer1 -= damagePlayer2;
+                int damageFromPlayer2 = Random.Next(10, 21);
+                healthWrestler1 -= damageFromPlayer2;
             }
 
             Wrestler matchWinner;
-            if (healthPlayer1 > 0)
+            if (healthWrestler1 > 0)
             {
-                matchWinner = first;
+                matchWinner = wrestler1;
             }
             else
             {
-                matchWinner = second;
+                matchWinner = wrestler2;
             }
             Console.WriteLine($"Winner of Match {matchNumber}: {matchWinner.Name} ({matchWinner.Breed})");
             Console.WriteLine($"Finishing move: {matchWinner.Moves[Random.Next(matchWinner.Moves.Count)]}");
 
-            if (matchWinner == first)
+            if (matchWinner == wrestler1)
             {
-                winsPlayer1++;
+                winsWrestler1++;
             }
             else
             {
-                winsPlayer2++;
+                winsWrestler2++;
             }
             
-            if (winsPlayer1 == 2 || winsPlayer2 == 2)
+            if (winsWrestler1 == 2 || winsWrestler2 == 2)
             {
                 break;
             }
         }
         
         Wrestler gameWinner;
-        if (winsPlayer1 > winsPlayer2)
+        if (winsWrestler1 > winsWrestler2)
         {
-            gameWinner = first;
+            gameWinner = wrestler1;
         }
         else
         {
-            gameWinner = second;
+            gameWinner = wrestler2;
         }
         
         int synonymIndex = Random.Next(shoutSynonyms.Count);
