@@ -21,20 +21,23 @@ public class MatchSimulator
         WrestlerGenerator = new WrestlerGenerator();
     }
 
-    public void RunMatchSeries()
-    {
+    public void writeIntroToConsole(Wrestler first, Wrestler second){
         Console.WriteLine("========================================================================");
         Console.WriteLine("Welcome to the Dog Wrestling League Championship!");
         Console.WriteLine("-------------------------------------------------");
-        Wrestler first = WrestlerGenerator.GenerateWrestler();
-        Wrestler second = WrestlerGenerator.GenerateWrestler();
-
-
         Console.WriteLine($"==> Best of Three: {first.Name} vs. {second.Name} <==");
         Console.WriteLine($"Introducing {first.Name} ({first.Breed} - {first.WrestlerName})");
         Console.WriteLine($"    {first.Description}");
         Console.WriteLine($"Introducing {second.Name} ({second.Breed} - {second.WrestlerName})");
         Console.WriteLine($"    {second.Description}");
+    }
+
+    public void RunMatchSeries()
+    {
+        Wrestler first = WrestlerGenerator.GenerateWrestler();
+        Wrestler second = WrestlerGenerator.GenerateWrestler();
+        writeIntroToConsole(first, second);
+
 
         int winsPlayer1 = 0;
         int winsPlayer2 = 0;
