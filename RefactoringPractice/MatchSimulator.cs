@@ -69,7 +69,7 @@ public class MatchSimulator
         }
     }
 
-    public Wrestler determineWinner(){
+    public Wrestler determineWinner(Wrestler wrestler1, Wrestler wrestler2){
         Wrestler gameWinner;
         if (winsWrestler1 > winsWrestler2)
         {
@@ -99,11 +99,11 @@ public class MatchSimulator
             runSingleWrestlerMatch(wrestler1, wrestler2);
         }
         
-        gameWinner = determineWinner();
+        matchWinner = determineWinner(wrestler1, wrestler2);
         
         int synonymIndex = Random.Next(shoutSynonyms.Count);
         string randomShoutSynonym = shoutSynonyms[synonymIndex];
-        Console.WriteLine($"\n{gameWinner.Name} ({gameWinner.Breed}) wins, {randomShoutSynonym}: \"{gameWinner.Catchphrase}\"");
+        Console.WriteLine($"\n{matchWinner.Name} ({matchWinner.Breed}) wins, {randomShoutSynonym}: \"{matchWinner.Catchphrase}\"");
     }
 }
     
