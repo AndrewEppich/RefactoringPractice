@@ -44,49 +44,8 @@ public class MatchSimulator
 
         for (int matchNumber = 1; matchNumber <= 3; matchNumber++)
         {
-            Console.WriteLine($"\n--- Match {matchNumber} ---");
-            Console.WriteLine("Press Enter to begin the match...");
-            Console.ReadLine();
-            
-            int healthWrestler1 = 100;
-            int healthWrestler2 = 100;
-
-            while (healthWrestler1 > 0 && healthWrestler2 > 0)
-            {
-                int damageFromPlayer1 = Random.Next(10, 21);
-                healthWrestler2 -= damageFromPlayer1;
-
-                if (healthWrestler2 <= 0) break;       
-
-                int damageFromPlayer2 = Random.Next(10, 21);
-                healthWrestler1 -= damageFromPlayer2;
-            }
-
-            Wrestler matchWinner;
-            if (healthWrestler1 > 0)
-            {
-                matchWinner = wrestler1;
-            }
-            else
-            {
-                matchWinner = wrestler2;
-            }
-            Console.WriteLine($"Winner of Match {matchNumber}: {matchWinner.Name} ({matchWinner.Breed})");
-            Console.WriteLine($"Finishing move: {matchWinner.Moves[Random.Next(matchWinner.Moves.Count)]}");
-
-            if (matchWinner == wrestler1)
-            {
-                winsWrestler1++;
-            }
-            else
-            {
-                winsWrestler2++;
-            }
-            
-            if (winsWrestler1 == 2 || winsWrestler2 == 2)
-            {
-                break;
-            }
+            runSingleMatch();
+           
         }
         
         Wrestler gameWinner;
@@ -102,5 +61,57 @@ public class MatchSimulator
         int synonymIndex = Random.Next(shoutSynonyms.Count);
         string randomShoutSynonym = shoutSynonyms[synonymIndex];
         Console.WriteLine($"\n{gameWinner.Name} ({gameWinner.Breed}) wins, {randomShoutSynonym}: \"{gameWinner.Catchphrase}\"");
+    }
+
+    public void runSingleMatch()
+    {
+        Console.WriteLine($"\n--- Match {matchNumber} ---");
+        Console.WriteLine("Press Enter to begin the match...");
+        Console.ReadLine();
+            
+        int healthWrestler1 = 100;
+        int healthWrestler2 = 100;
+
+        while (healthWrestler1 > 0 && healthWrestler2 > 0)
+        {
+            int damageFromPlayer1 = Random.Next(10, 21);
+            healthWrestler2 -= damageFromPlayer1;
+
+            if (healthWrestler2 <= 0) break;       
+
+            int damageFromPlayer2 = Random.Next(10, 21);
+            healthWrestler1 -= damageFromPlayer2;
+        }
+
+        Wrestler matchWinner;
+        if (healthWrestler1 > 0)
+        {
+            matchWinner = wrestler1;
+        }
+        else
+        {
+            matchWinner = wrestler2;
+        }
+        Console.WriteLine($"Winner of Match {matchNumber}: {matchWinner.Name} ({matchWinner.Breed})");
+        Console.WriteLine($"Finishing move: {matchWinner.Moves[Random.Next(matchWinner.Moves.Count)]}");
+
+        if (matchWinner == wrestler1)
+        {
+            winsWrestler1++;
+        }
+        else
+        {
+            winsWrestler2++;
+        }
+            
+        if (winsWrestler1 == 2 || winsWrestler2 == 2)
+        {
+            break;
+        }
+    }
+
+    public void runFight()
+    {
+        
     }
 }
