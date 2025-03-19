@@ -99,7 +99,7 @@ public class MatchSimulator
             runSingleWrestlerMatch(wrestler1, wrestler2);
         }
         
-        matchWinner = determineWinner(wrestler1, wrestler2);
+        Wrestler matchWinner = determineWinner(wrestler1, wrestler2);
         
         int synonymIndex = Random.Next(shoutSynonyms.Count);
         string randomShoutSynonym = shoutSynonyms[synonymIndex];
