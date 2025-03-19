@@ -64,9 +64,6 @@ public class MatchSimulator
         else{
             winsWrestler2++;
         }     
-        if (winsWrestler1 == 2 || winsWrestler2 == 2){
-            break;
-        }
     }
 
     public Wrestler determineWinner(Wrestler wrestler1, Wrestler wrestler2){
@@ -97,6 +94,9 @@ public class MatchSimulator
             Console.ReadLine();
             
             runSingleWrestlerMatch(wrestler1, wrestler2);
+            if (winsWrestler1 == 2 || winsWrestler2 == 2){
+                break;
+            }
         }
         
         Wrestler matchWinner = determineWinner(wrestler1, wrestler2);
