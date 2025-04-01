@@ -6,10 +6,12 @@ public class MatchSimulator
 {
     public WrestlerGenerator WrestlerGenerator;
     public Random Random = new Random();
-    public int winsWrestler1 { get; set; } = 0;
-    public int winsWrestler2 { get; set; } = 0;
-    public int healthWrestler1 { get; set; } = 100;
-    public int healthWrestler2 { get; set; } = 100;
+    private int winsWrestler1 { get; set; } = 0;
+    private int winsWrestler2 { get; set; } = 0;
+    private int healthWrestler1 { get; set; } = 100;
+    private int healthWrestler2 { get; set; } = 100;
+    private int getMatchNumber { get; set; } = 0
+
     public List<string> shoutSynonyms = new List<string>()
     {
         "shouting",
@@ -56,7 +58,7 @@ public class MatchSimulator
             else{
             matchWinner = wrestler2;
         }
-        Console.WriteLine($"Winner of Match {matchNumber}: {matchWinner.Name} ({matchWinner.Breed})");
+        Console.WriteLine($"Winner of Match {getMatchNumber}: {matchWinner.Name} ({matchWinner.Breed})");
         Console.WriteLine($"Finishing move: {matchWinner.Moves[Random.Next(matchWinner.Moves.Count)]}");
         if (matchWinner == wrestler1){
             winsWrestler1++;
@@ -64,9 +66,6 @@ public class MatchSimulator
         else{
             winsWrestler2++;
         }     
-        if (winsWrestler1 == 2 || winsWrestler2 == 2){
-            break;
-        }
     }
 
     public Wrestler determineWinner(Wrestler wrestler1, Wrestler wrestler2){
@@ -95,8 +94,12 @@ public class MatchSimulator
             Console.WriteLine($"\n--- Match {matchNumber} ---");
             Console.WriteLine("Press Enter to begin the match...");
             Console.ReadLine();
+            getMatchNumber = matchNumber;
             
             runSingleWrestlerMatch(wrestler1, wrestler2);
+            if (winsWrestler1 == 2 || winsWrestler2 == 2){
+                break;
+            }
         }
         
         Wrestler matchWinner = determineWinner(wrestler1, wrestler2);
