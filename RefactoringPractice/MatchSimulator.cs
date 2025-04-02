@@ -10,7 +10,7 @@ public class MatchSimulator
     private int winsWrestler2 { get; set; } = 0;
     private int healthWrestler1 { get; set; } = 100;
     private int healthWrestler2 { get; set; } = 100;
-    private int getMatchNumber { get; set; } = 0
+    private int getMatchNumber { get; set; } = 0;
 
     public List<string> shoutSynonyms = new List<string>()
     {
