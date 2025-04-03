@@ -38,28 +38,12 @@ public class MatchSimulator
         Console.WriteLine($"    {second.Description}");
     }
 
-    public void runSingleWrestlerMatch(Wrestler wrestler1, Wrestler wrestler2){
-        healthWrestler1 = 100;
-        healthWrestler2 = 100;
-
-        while (healthWrestler1 > 0 && healthWrestler2 > 0){
-                int damageFromPlayer1 = Random.Next(10, 21);
-                healthWrestler2 -= damageFromPlayer1;
-
-                if (healthWrestler2 <= 0) break;       
-
-                int damageFromPlayer2 = Random.Next(10, 21);
-                healthWrestler1 -= damageFromPlayer2;
-        }
-        Wrestler matchWinner;
-        if (healthWrestler1 > 0){
-            matchWinner = wrestler1;
-        }
-            else{
-            matchWinner = wrestler2;
-        }
-        Console.WriteLine($"Winner of Match {getMatchNumber}: {matchWinner.Name} ({matchWinner.Breed})");
-        Console.WriteLine($"Finishing move: {matchWinner.Moves[Random.Next(matchWinner.Moves.Count)]}");
+    public void RunSingleWrestlerMatch(Wrestler wrestler1, Wrestler wrestler2){
+        
+        Match match = new Match();
+        Wrestler matchWinner = match.determineMatchWinner(wrestler1, wrestler2);
+        match.displayMatchWinner(matchWinner,getMatchNumber);
+        
         if (matchWinner == wrestler1){
             winsWrestler1++;
         }
@@ -68,7 +52,7 @@ public class MatchSimulator
         }     
     }
 
-    public Wrestler determineWinner(Wrestler wrestler1, Wrestler wrestler2){
+    public Wrestler DetermineWinner(Wrestler wrestler1, Wrestler wrestler2){
         Wrestler gameWinner;
         if (winsWrestler1 > winsWrestler2)
         {
@@ -96,13 +80,13 @@ public class MatchSimulator
             Console.ReadLine();
             getMatchNumber = matchNumber;
             
-            runSingleWrestlerMatch(wrestler1, wrestler2);
+            RunSingleWrestlerMatch(wrestler1, wrestler2);
             if (winsWrestler1 == 2 || winsWrestler2 == 2){
                 break;
             }
         }
         
-        Wrestler matchWinner = determineWinner(wrestler1, wrestler2);
+        Wrestler matchWinner = DetermineWinner(wrestler1, wrestler2);
         
         int synonymIndex = Random.Next(shoutSynonyms.Count);
         string randomShoutSynonym = shoutSynonyms[synonymIndex];
