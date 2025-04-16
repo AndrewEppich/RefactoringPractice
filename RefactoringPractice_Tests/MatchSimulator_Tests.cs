@@ -101,20 +101,17 @@ public class MatchSimulator_Tests
     [Fact]
     public void RunMatchSeriesAnnouncesWinner()
     {
-        // Arrange
         MatchSimulator simulator = new MatchSimulator();
 
         using StringWriter consoleOutput = new StringWriter();
         Console.SetOut(consoleOutput);
 
-        using StringReader fakeInput = new StringReader("\n\n\n"); // Simulates pressing Enter 3 times
+        using StringReader fakeInput = new StringReader("\n\n\n");
         Console.SetIn(fakeInput);
 
-        // Act
         simulator.RunMatchSeries();
         string output = consoleOutput.ToString();
 
-        // Assert
         Assert.Contains("Winner of Match", output);
     }
     
@@ -149,5 +146,38 @@ public class MatchSimulator_Tests
         Wrestler champion = (simulator.Random.Next(2) == 0) ? firstWrestler : secondWrestler;
 
         Assert.False(string.IsNullOrWhiteSpace(champion.Catchphrase));
+    }
+
+    [Fact]
+    public void RunMatchSeries_ProducesValidChampion()
+    {
+        MatchSimulator simulator = new MatchSimulator();
+        using StringWriter consoleOutput = new StringWriter();
+        Console.SetOut(consoleOutput);
+        using StringReader fakeInput = new StringReader("\n\n\n");
+        Console.SetIn(fakeInput);
+
+        simulator.RunMatchSeries();
+        string output = consoleOutput.ToString();
+
+        Assert.Contains("wins,", output);
+        Assert.True(simulator.winsWrestler1 == 2 || simulator.winsWrestler2 == 2);
+    }
+
+    [Fact]
+    public void RunSingleWrestlerMatch_UpdatesWinCountCorrectly()
+    {
+        MatchSimulator simulator = new MatchSimulator();
+        Wrestler wrestler1 = simulator.WrestlerGenerator.GenerateWrestler();
+        Wrestler wrestler2 = simulator.WrestlerGenerator.GenerateWrestler();
+        int initialWins1 = simulator.winsWrestler1;
+        int initialWins2 = simulator.winsWrestler2;
+
+        simulator.RunSingleWrestlerMatch(wrestler1, wrestler2);
+
+        Assert.True(simulator.winsWrestler1 == initialWins1 + 1 || 
+                   simulator.winsWrestler2 == initialWins2 + 1);
+        Assert.True(simulator.winsWrestler1 + simulator.winsWrestler2 == 
+                   initialWins1 + initialWins2 + 1);
     }
 }

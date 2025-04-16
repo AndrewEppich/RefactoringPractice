@@ -6,11 +6,11 @@ public class MatchSimulator
 {
     public WrestlerGenerator WrestlerGenerator;
     public Random Random = new Random();
-    private int winsWrestler1 { get; set; } = 0;
-    private int winsWrestler2 { get; set; } = 0;
-    private int healthWrestler1 { get; set; } = 100;
-    private int healthWrestler2 { get; set; } = 100;
-    private int getMatchNumber { get; set; } = 0;
+    public int winsWrestler1 { get; set; } = 0;
+    public int winsWrestler2 { get; set; } = 0;
+    public int healthWrestler1 { get; set; } = 100;
+    public int healthWrestler2 { get; set; } = 100;
+    public int getMatchNumber { get; set; } = 0;
 
     public List<string> shoutSynonyms = new List<string>()
     {
